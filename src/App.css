@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.carousel-inner {
+    height: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  height: 65vh;
+}
