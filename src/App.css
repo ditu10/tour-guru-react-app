@@ -1,10 +1,18 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.primary-color{
+  color: #038E10;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.font-very-large{
+  font-size: 65px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
