@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { NavLink } from 'react-router-dom';
 
 export const TopNavbar = () => {
   return (
@@ -10,9 +11,11 @@ export const TopNavbar = () => {
       <div className='container-md py-md-3'>
         <Navbar expand="md" className="bg-body-tertiary">
       <Container fluid>
-          <Navbar.Brand href="#">
+            <NavLink to={'/'}>
+              <Navbar.Brand>
             <img width="100px" src='/tripgurulogo.png' alt='logo.png' />
         </Navbar.Brand>
+          </NavLink>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
