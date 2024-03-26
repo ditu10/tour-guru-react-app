@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { ControlledCarousel } from '../components/ControlledCarousel'
 import { TopNavbar } from '../shared/TopNavbar'
 import {categories as ct} from '../mock/categories';
 import {poluparTours as pp} from '../mock/popular';
@@ -8,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 export const Home = () => {
   const [categories, setCategories] = useState([]);
   const [favourites, setFavourites] = useState([]);
+  
   useEffect(() => {
     setCategories(ct)
     setFavourites(pp)
@@ -46,6 +46,7 @@ export const Home = () => {
                   
                   return (
                     <div className='col-lg-3 col-md-6 col-12 mb-4'>
+                      <NavLink className="text-decoration-none" to={`/categories/${category.slug}`}>
                       <div className='card border-0' style={{ height: '24rem' }}>
                         <div className='card-body d-flex justify-content-center align-items-end rounded'  style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${url})`}}>
                         <div>
@@ -54,6 +55,7 @@ export const Home = () => {
                         </div> 
                       </div>
                     </div>
+                    </NavLink>
                   </div>
                   )
               })
