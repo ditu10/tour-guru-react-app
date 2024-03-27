@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TopNavbar } from '../shared/TopNavbar'
 import {categories as ct} from '../mock/categories'
 import { NavLink } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 
 export const Categories = () => {
   const [categories, setCategories] = useState(ct);
@@ -13,6 +14,16 @@ export const Categories = () => {
           <h1 className='mt-4'>Where to next?</h1>
           <h3 className='text-secondary'>Discover eco-friendly experiences based on your interests</h3>
           </div>
+          <div className='text-center'>
+          <Form.Control
+              type="search"
+              placeholder="Search"
+              className="w-50 mx-auto d-block "
+              aria-label="Search"
+              
+            />
+             </div>
+            
           <div className='row mx-md-3 mt-5 mx-lg-5'>
           {
             categories.map((category, index) => {

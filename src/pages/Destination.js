@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { TopNavbar } from '../shared/TopNavbar';
-import { MyCenteredModal } from '../components/MyCenteredModal';
-import {destination} from '../mock/destinations'
 import { Card } from 'react-bootstrap';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdClock } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
+import { TopNavbar } from '../shared/TopNavbar';
+import {MyCenteredModal} from '../components/MyCenteredModal'
 
 
-
-
-export const Category = () => {
+export const Destination = () => {
     const {slug} = useParams();
     const [tours, setTours] = useState([])
 
     useEffect(()=>{
-        fetch(`https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=${slug}&min_price=0&max_price=2475`)
+        fetch(`https://api.thetripguru.com/api/tours/?location__city__slug=${slug}&categories__url=&min_price=0&max_price=2475`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
             setTours(data.data)
         })
-    },[])
-
-  
+    }, [])
   return (
-    <div>
-        <TopNavbar/>
+    <>
+    <TopNavbar/>
         <section className='text-center container'>
-            <MyCenteredModal destination = {destination}/>
+        <MyCenteredModal destination = {slug}/>
             <div className='mt-5'>
             <h5 className='text-secondary mb-0 pb-0'>Showing</h5>
             <h1>Experiences in {slug}</h1>
@@ -90,6 +85,6 @@ export const Category = () => {
         </div>
             
         </section>
-    </div>
+    </>
   )
 }
