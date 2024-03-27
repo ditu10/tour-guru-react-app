@@ -1,8 +1,7 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TopNavbar } from "../shared/TopNavbar";
 import { MyCenteredModal } from "../components/MyCenteredModal";
-import { destination } from "../mock/destinations";
 import { Card } from "react-bootstrap";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdClock } from "react-icons/io";
@@ -12,24 +11,32 @@ export const Category = () => {
   const { slug } = useParams();
   const [tours, setTours] = useState([]);
   const [availableDestination, setAvailableDestination] = useState([]);
+  const [selectedDestination, setSelectedDestination] = useState({
+    name: "All",
+  });
   let searchRef = useRef();
-
   useEffect(() => {
-    fetch(
-      `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=${slug}&min_price=0&max_price=2475`
-    )
+    let url = `https://api.thetripguru.com/api/tours/?location__city__slug=${selectedDestination.slug}&categories__url=${slug}&min_price=0&max_price=2475&limit=200`;
+    if (selectedDestination?.name?.toLocaleLowerCase() === "all") {
+      url = `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=${slug}&min_price=0&max_price=2475&limit=200`;
+    }
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         setTours(data.data);
       });
+  }, [selectedDestination]);
 
+  
+
+  useEffect(() => {
     fetch(
       `https://api.thetripguru.com/api/destinations/?response_type=default&category_slug=${slug}&limit=100`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data)
+        console.log(data.data);
         setAvailableDestination(data.data);
       });
   }, []);
@@ -38,7 +45,13 @@ export const Category = () => {
     <div>
       <TopNavbar />
       <section className="text-center container">
-        <MyCenteredModal searchRef={searchRef} destinations={availableDestination} />
+        <MyCenteredModal
+          searchRef={searchRef}
+          destinations={availableDestination}
+          setSelectedSearchedItem={setSelectedDestination}
+          searchName="Destination"
+          selectedSearchedItem={selectedDestination}
+        />
         <div className="mt-5">
           <h5 className="text-secondary mb-0 pb-0">Showing</h5>
           <h1>Experiences in {slug}</h1>
@@ -61,7 +74,10 @@ export const Category = () => {
             //   if (index < 8)
 
             return (
-              <div className=" col-lg-3 text-start col-md-6 col-12 mb-4 border-0">
+              <div
+                key={index}
+                className=" col-lg-3 text-start col-md-6 col-12 mb-4 border-0"
+              >
                 <Card className="my-card">
                   <Card.Img
                     variant="top"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
@@ -11,29 +11,43 @@ export const Destination = () => {
   const { slug } = useParams();
   const [tours, setTours] = useState([]);
   const [availableCategories, setAvailableCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({ name: "All" });
+  let searchRef = useRef();
 
   useEffect(() => {
-    fetch(
-      `https://api.thetripguru.com/api/tours/?location__city__slug=${slug}&categories__url=&min_price=0&max_price=2475`
-    )
+    let url = `https://api.thetripguru.com/api/tours/?location__city__slug=${slug}&categories__url=${selectedCategory.slug}&min_price=0&max_price=2475&limit=200`;
+    if (selectedCategory?.name.toLowerCase() === "all") {
+      url = `https://api.thetripguru.com/api/tours/?location__city__slug=${slug}&categories__url=&min_price=0&max_price=2475&limit=200`;
+    }
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setTours(data.data);
       });
+  }, [selectedCategory]);
 
-    fetch(`https://api.thetripguru.com/api/categories/?destination_slug=${slug}&limit=100`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.data)
-            setAvailableCategories(data.data)
-        })
+  useEffect(() => {
+    fetch(
+      `https://api.thetripguru.com/api/categories/?destination_slug=${slug}&limit=100`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.data);
+        setAvailableCategories(data.data);
+      });
   }, []);
   return (
     <>
       <TopNavbar />
       <section className="text-center container">
-        <MyCenteredModal categories={availableCategories} />
+        <MyCenteredModal
+          searchRef={searchRef}
+          setSelectedSearchedItem={setSelectedCategory}
+          categories={availableCategories}
+          searchName="Category"
+          selectedSearchedItem={selectedCategory}
+        />
         <div className="mt-5">
           <h5 className="text-secondary mb-0 pb-0">Showing</h5>
           <h1>Experiences in {slug}</h1>
