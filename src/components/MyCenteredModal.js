@@ -50,15 +50,15 @@ export const MyCenteredModal = ({
   return (
     <>
       <button
-        style={{backgroundColor:'#F6F6F6'}}
-        className="w-50 py-2 px-2 rounded border-0 fs-5"
+        style={{ backgroundColor: "#F6F6F6" }}
+        className="w-50 w-md-100 py-2 px-2 rounded border-0 fs-5"
         type="button"
         onClick={() => setLgShow(true)}
       >
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center">
             <div className="me-2 fs-3  text-secondary">
-              <TiWorldOutline  />{" "}
+              <TiWorldOutline />{" "}
             </div>
             <div>
               <span className="text-secondary">{searchName}</span>

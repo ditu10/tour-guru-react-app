@@ -1,14 +1,24 @@
 /* https://res.cloudinary.com/thetripguru/image/upload/f_auto,c_limit,w_720,q_auto/02-tours/ordz4mt5q18g6h0renez */
 .my-card{
-    border: 1px solid slategray;
-    transform: scale(1);
-    transition: transform 0.3s ease-in-out;
+    /* border: 1px solid slategray; */
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 .my-card:hover{
     /*transform: scale(1.02);*/
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 2px 2px 4px rgba(90, 89, 89, 0.4), -2px -2px 4px rgba(255, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease-in-out;
+    /* box-shadow: 2px 2px 4px rgba(90, 89, 89, 0.4), -2px -2px 4px rgba(255, 255, 255, 0.3); */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
+}
 
+.tour-img{
+    height: 12rem;
+    object-fit: cover;
+}
+
+.my-card{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
 }
