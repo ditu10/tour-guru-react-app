@@ -33,28 +33,30 @@ export const Categories = () => {
           console.log(url);
 
           return (
-            <div className="col-lg-3 col-md-6 col-12 mb-4">
-              <NavLink
-                className="text-decoration-none"
-                to={`/categories/${category.slug}`}
-              >
-                <div className="card border-0" style={{ height: "24rem" }}>
-                  <div
-                    className="card-body d-flex align-items-end justify-content-center rounded"
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${url})`,
-                    }}
-                  >
-                    <div>
-                      <h1 className="text-white pb-2">{category.name}</h1>
-                      <h5 className="text-white border rounded-pill px-3">
-                        Discover {category.tour_count} tours
-                      </h5>
+            <>
+              <div className="col-lg-3 col-md-6 col-12 mb-4">
+                <NavLink
+                  className="text-decoration-none"
+                  to={`/categories/${category.slug}`}
+                >
+                  <div className="card border-0" style={{ height: "24rem" }}>
+                    <div
+                      className="card-body d-flex align-items-end justify-content-center rounded"
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${url})`,
+                      }}
+                    >
+                      <div>
+                        <h1 className="text-white pb-2">{category.name}</h1>
+                        <h5 className="text-white border rounded-pill px-3">
+                          Discover {category.tour_count} tours
+                        </h5>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </NavLink>
-            </div>
+                </NavLink>
+              </div>
+            </>
           );
         })}
       </div>

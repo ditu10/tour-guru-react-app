@@ -1,75 +1,68 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from "react";
-import Slider from "react-slick";
+import React, { useEffect, useState } from "react";
 import { TopNavbar } from "../shared/TopNavbar";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Spinner from "react-bootstrap/Spinner";
+import { TourCard } from "../components/TourCard";
 
 export const Tours = () => {
-  var settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const [tours, setTours] = useState([]);
+  const [nextApi, setNextApi] = useState("");
+  let [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(
+      `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=&min_price=0&max_price=2475&limit=20&ordering=-bookings`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTotal(data.meta.total);
+        setNextApi(data.meta.cursor.next);
+        setTours(data.data);
+        setLoading(false)
+      });
+  }, []);
+
+  const fetchMoreData = () => {
+    fetch(nextApi)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.meta.cursor.next);
+        setNextApi(data.meta.cursor.next);
+        setTours([...tours, ...data.data]);
+      });
   };
+
   return (
     <>
       <TopNavbar />
-      <div className="slider-container">
-        <Slider {...settings}>
-          <div>
-            <h3>1</h3>
+      <section className="container">
+        <h3 className="text-center mb-4">Total available tours: {total} </h3>
+        <InfiniteScroll
+          dataLength={tours.length}
+          next={fetchMoreData}
+          hasMore={tours.length >= total ? false : true}
+          loader={
+            <div className="text-center mt-3">
+              <Spinner className="" animation="grow" />
+            </div>
+          }
+        >
+          {loading && (
+            <div className="text-center mt-3">
+              <Spinner className="" animation="grow" />
+            </div>
+          )}
+          <div className="row mx-md-3 mt-5 mx-lg-5">
+            {tours.map((tour, index) => {
+              return <TourCard tour={tour} />;
+            })}
           </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-          <div>
-            <h3>7</h3>
-          </div>
-          <div>
-            <h3>8</h3>
-          </div>
-        </Slider>
-      </div>
+        </InfiniteScroll>
+      </section>
     </>
   );
 };
