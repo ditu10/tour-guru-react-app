@@ -14,7 +14,7 @@ export const Tours = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=&min_price=0&max_price=2475&limit=20&ordering=-bookings`
+      `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=&min_price=0&max_price=2475&limit=12&ordering=-bookings`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -58,7 +58,7 @@ export const Tours = () => {
           )}
           <div className="row mx-md-3 mt-5 mx-lg-5">
             {tours.map((tour, index) => {
-              return <TourCard tour={tour} />;
+              return <TourCard tour={tour} />
             })}
           </div>
         </InfiniteScroll>

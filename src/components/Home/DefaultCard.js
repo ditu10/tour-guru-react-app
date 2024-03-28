@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export const DefaultCard = ({ content }) => {
+export const DefaultCard = ({ content, name }) => {
   const url =
     "https://res.cloudinary.com/thetripguru/image/upload/f_auto,c_limit,w_720,q_auto/" +
     content.thumbnail;
@@ -10,7 +10,7 @@ export const DefaultCard = ({ content }) => {
       <div className="col-lg-3 col-md-6 col-12 mb-4">
         <NavLink
           className="text-decoration-none"
-          to={`/categories/${content.slug}`}
+          to={`/${name}/${content.slug}`}
         >
           <div className="card border-0" style={{ height: "24rem" }}>
             <div

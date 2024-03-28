@@ -58,7 +58,7 @@ export const Home = () => {
         />
         <div className="row mx-md-3 mt-5 mx-lg-5 ">
           {categories.map((category, index) => {
-            if (index < 5) return <DefaultCard content={category} />;
+            if (index < 5) return <DefaultCard name="categories" content={category} />;
           })}
 
           <div className="col-lg-3 col-md-6 col-12 mb-4">
@@ -88,7 +88,7 @@ export const Home = () => {
 
         <div className="row mx-md-3 mt-5 mx-lg-5">
           {favourites.map((favourite, index) => {
-            if (index < 8) return <DefaultCard content={favourite} />;
+            if (index < 8) return <DefaultCard name="destinations" content={favourite} />;
           })}
         </div>
       </section>
@@ -110,7 +110,7 @@ export const Home = () => {
             if (index < 8) return <TourCard tour={tour} index={index} />;
           })}
           <NavLink className="" to={"/tours"}>
-            <button oncl className="w-100 btn btn-outline-success py-2">
+            <button className="w-100 btn btn-outline-success py-2">
               Show All Tours
             </button>
           </NavLink>

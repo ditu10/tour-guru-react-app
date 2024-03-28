@@ -5,6 +5,7 @@ import { Categories } from "./pages/Categories";
 import { Category } from "./pages/Category";
 import { Destination } from "./pages/Destination";
 import { Tours } from "./pages/Tours";
+import { TourDetails } from "./pages/TourDetails";
 
 
 export const router = createBrowserRouter([
@@ -22,11 +23,15 @@ export const router = createBrowserRouter([
     element: <Category />,
   },
   {
-    path: "/destination/:slug",
+    path: "/destinations/:slug",
     element: <Destination />,
   },
   {
     path: "/tours",
     element: <Tours/>,
+  },
+  {
+    path: "/tour/:slug",
+    element: <TourDetails />,
   },
 ]);

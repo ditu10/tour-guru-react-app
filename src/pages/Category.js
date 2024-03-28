@@ -21,7 +21,7 @@ export const Category = () => {
     setTours([]);
     setLoading(true);
     let url = `https://api.thetripguru.com/api/tours/?location__city__slug=${selectedDestination.slug}&categories__url=${slug}&min_price=0&max_price=2475&limit=200`;
-    if (selectedDestination?.name?.toLocaleLowerCase() === "all") {
+    if (selectedDestination?.name?.toLowerCase() === "all") {
       url = `https://api.thetripguru.com/api/tours/?location__city__slug=&categories__url=${slug}&min_price=0&max_price=2475&limit=200`;
     }
 
@@ -31,7 +31,7 @@ export const Category = () => {
         setTours(data.data);
         setLoading(false);
       });
-  }, [selectedDestination]);
+  }, [selectedDestination, slug]);
 
   useEffect(() => {
     fetch(
