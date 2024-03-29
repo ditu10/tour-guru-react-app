@@ -6,21 +6,25 @@ import { NavLink } from "react-router-dom";
 import { Heading } from "../components/Home/Heading";
 import { DefaultCard } from "../components/Home/DefaultCard";
 import { TourCard } from "../components/TourCard";
+import { Spinner } from "react-bootstrap";
 
 export const Home = () => {
   const [categories, setCategories] = useState([]);
-  const [favourites, setFavourites] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [signatureTour, setSignatureTour] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setCategories(ct);
-    setFavourites(pp);
+    setFavorites(pp);
+
     fetch("https://api.thetripguru.com/api/tours/popular/?limit=10")
       .then((res) => res.json())
       .then((data) => {
         setSignatureTour(data.data);
+        setLoading(false);
       });
-  },[]);
+  }, []);
 
   return (
     <div>
@@ -58,7 +62,8 @@ export const Home = () => {
         />
         <div className="row mx-md-3 mt-5 mx-lg-5 ">
           {categories.map((category, index) => {
-            if (index < 5) return <DefaultCard name="categories" content={category} />;
+            if (index < 5)
+              return <DefaultCard name="categories" content={category} />;
           })}
 
           <div className="col-lg-3 col-md-6 col-12 mb-4">
@@ -87,8 +92,9 @@ export const Home = () => {
         />
 
         <div className="row mx-md-3 mt-5 mx-lg-5">
-          {favourites.map((favourite, index) => {
-            if (index < 8) return <DefaultCard name="destinations" content={favourite} />;
+          {favorites.map((favorite, index) => {
+            if (index < 8)
+              return <DefaultCard name="destinations" content={favorite} />;
           })}
         </div>
       </section>
@@ -106,6 +112,11 @@ export const Home = () => {
         />
 
         <div className="row mx-md-3 mt-5 mx-lg-5">
+          {loading && (
+            <div className="text-center mt-3">
+              <Spinner className="" animation="grow" />
+            </div>
+          )}
           {signatureTour.map((tour, index) => {
             if (index < 8) return <TourCard tour={tour} index={index} />;
           })}
